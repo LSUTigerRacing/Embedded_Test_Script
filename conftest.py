@@ -1,6 +1,7 @@
 import pytest
 from device import Device
 
+# pytest default to this port
 def pytest_addoption(parser):
     parser.addoption("--port", default="/dev/ttyACM0")
 
