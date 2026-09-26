@@ -10,13 +10,15 @@ class Device:
     def send_command(self, cmd: str)->None:
         self.ser.write((cmd+ "\n").encode())
 
-    def read_response(self, cmd: str)->str:
+    def read_response(self)->str:
         line = self.ser.readline()
         if not line:
             raise TimeoutError("no response from device")
         return line.decode(errors="replace").strip()
     def query(self,cmd:str)->str:
         self.send_command(cmd)
-        return self.read_response()
+        response = self.read_response()
+        print(f"  -> {cmd!r}  <- {response!r}")
+        return response
     def close(self):
         self.ser.close()
